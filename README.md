@@ -22,6 +22,8 @@ bun run build
 
 # Start production server
 bun start
+```
+
 
 # 1. Project Structure & Tech Stack
 
