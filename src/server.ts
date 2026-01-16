@@ -1,4 +1,5 @@
 import express, { type Request, type Response, type NextFunction } from 'express';
+import type { ParsedQs } from 'qs';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import type { ApiResponse, User } from './types/index.js';
@@ -36,10 +37,7 @@ app.get('/api/health', (req: Request, res: Response<ApiResponse>) => {
   res.json(response);
 });
 
-app.post('/api/users', (
-  req: Request<{}, {}, Omit<User, 'id' | 'createdAt'>>, 
-  res: Response<ApiResponse<User>>
-) => {
+app.post('/api/users', (req: Request<Record<string, never>, ApiResponse<User>, Omit<User, 'id' | 'createdAt'>, ParsedQs>, res: Response<ApiResponse<User>>) => {
   const { name, email } = req.body;
   
   if (!name || !email) {
@@ -76,7 +74,7 @@ app.post('/api/users', (
 });
 
 // Error handling middleware
-app.use((err: Error, req: Request, res: Response<ApiResponse>, next: NextFunction) => {
+app.use((err: Error, req: Request, res: Response<ApiResponse>, _next: NextFunction) => {
   console.error('Error:', err.stack);
   
   const response: ApiResponse = {
