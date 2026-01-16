@@ -1,0 +1,21 @@
+[install]
+# Save exact versions in lockfile
+lockfile = "bun.lockb"
+# Install devDependencies
+dev = true
+
+[test]
+# Test configuration
+timeout = 5000
+
+coverage = true
+
+
+[build]
+# Build configuration
+target = "node"
+outdir = "./dist"
+entrypoints = ["./src/server.ts"]
+minify = false
+sourcemap = "linked"
+
